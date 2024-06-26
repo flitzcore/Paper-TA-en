@@ -1,5 +1,5 @@
 % Ubah judul dan label berikut sesuai dengan yang diinginkan.
-\section{Arsitektur}
+\section{Architecture}
 \label{sec:arsitektur}
 
 % Ubah paragraf-paragraf pada bagian ini sesuai dengan yang diinginkan.
@@ -7,33 +7,32 @@
 \subsection{Retriever}
 \label{subsec:Retriever}
 
-Sebelum menggunakan data untuk model bahasa, perlu dilakukan pencarian data yang relevan. Untuk melakukan pencarian data ini, dilakukan pencarian dengan melihat lokasi data dalam vektor. Untuk itu perlu mengubah data menjadi bentuk vektor yang dapat dihitung. Ada banyak metode untuk melakukan ini, seperti \emph{one-hot}, \emph{Word2Vec}, dan \emph{Doc2Vec}. Metode-metode ini menyediakan jalur efektif untuk kuantifikasi teks tetapi seringkali mengabaikan informasi kontekstual. Model \emph{Transformer}, yang diperkenalkan oleh Google pada tahun 2017, mengatasi kekurangan metode kuantifikasi teks yang ada dan dibangun menggunakan pelatihan tanpa pengawasan pada volume besar data korpus yang tidak berlabel \cite{vaswani2017attention}. \emph{Transformer} adalah arsitektur jaringan saraf yang banyak digunakan dalam NLP, klasifikasi teks, sistem tanya jawab, dan lainnya. Model ini terdiri dari beberapa \emph{encoder} dan \emph{decoder}, yang masing-masing terdiri dari beberapa lapisan blok identik. Blok-blok ini ditumpuk bersama untuk membentuk arsitektur keseluruhan \emph{Transformer} \cite{miao2016processing}. Struktur dari \emph{transformer} dapat dilihat pada Gambar \ref*{fig:transformer}
+Before using data for the language model, it is necessary to search for relevant data. To perform this data search, searches are conducted by looking at the location of the data within the vector. For this, data must be converted into a vector format that can be computed. There are many methods for doing this, such as \emph{one-hot}, \emph{Word2Vec}, and \emph{Doc2Vec}. These methods provide effective pathways for text quantification but often ignore contextual information. The \emph{Transformer} model, introduced by Google in 2017, overcomes the shortcomings of existing text quantification methods and is built using unsupervised training on large volumes of unlabeled corpus data \cite{vaswani2017attention}. The \emph{Transformer} is a neural network architecture widely used in NLP, text classification, question-answering systems, and more. This model consists of several \emph{encoders} and \emph{decoders}, each composed of several layers of identical blocks. These blocks are stacked together to form the overall \emph{Transformer} architecture \cite{miao2016processing}. The structure of the \emph{transformer} can be seen in Figure \ref*{fig:transformer}.
+
 \begin{figure*}
   \centering
-  \includegraphics[width=.7\textwidth]{gambar/struktur-transformer.jpg}
-  \caption{Struktur \emph{transformer} \cite{vaswani2017attention}}
+  \includegraphics[width=.6\textwidth]{gambar/struktur-transformer.jpg}
+  \caption{Transformer structure \cite{vaswani2017attention}}
   \label{fig:transformer}
 \end{figure*}
 
-Dalam arsitektur \emph{transformer}, terdapat dua komponen utama yaitu \emph{encoder} dan \emph{decoder}, masing-masing terdiri dari serangkaian lapisan yang sama. Setiap lapisan dalam \emph{encoder} dan \emph{decoder} memiliki dua sub-lapisan, yaitu mekanisme \emph{multi-head attention} dan \emph{fully connected network}. \emph{Multi-head attention}memungkinkan model untuk memproses bagian-bagian dari data secara paralel dan mengintegrasikan informasi dari berbagai posisi dalam data. Selain itu, \emph{transformer} memiliki mekanisme \emph{self-attention}, yang memungkinkan setiap output dari \emph{encoder} atau \emph{decoder} untuk mempertimbangkan seluruh input sebelumnya. Hal ini berbeda dengan algoritma-algoritma lain yang terbatas oleh jarak antara input yang relevan dan output. Mekanisme ini juga membantu dalam memahami dependensi jangka panjang dalam teks, yang sangat penting untuk tugas-tugas seperti penerjemahan. \emph{Positional encoding} digunakan untuk memberikan informasi posisi kepada model, karena model \emph{transformer} tidak memiliki rekurensi atau konvolusi yang secara alami menangkap urutan informasi \cite{vaswani2017attention}. 
+In the \emph{transformer} architecture, there are two main components: the \emph{encoder} and the \emph{decoder}, each consisting of a series of identical layers. Each layer in the \emph{encoder} and \emph{decoder} has two sub-layers, namely the \emph{multi-head attention} mechanism and the \emph{fully connected network}. \emph{Multi-head attention} allows the model to process parts of the data in parallel and integrate information from various positions within the data. Furthermore, the \emph{transformer} features a \emph{self-attention} mechanism, which allows each output from the \emph{encoder} or \emph{decoder} to consider all previous inputs. This differs from other algorithms that are limited by the distance between relevant inputs and outputs. This mechanism also aids in understanding long-term dependencies in text, which is crucial for tasks such as translation. \emph{Positional encoding} is used to provide positional information to the model, as the \emph{transformer} model lacks recursion or convolution that naturally captures the sequence of information \cite{vaswani2017attention}.
+ 
 
-\subsection{Augment dan Generation}
+\subsection{Augment and Generation}
 \label{subsec:AugmentGeneration}
 
-Pada proses \emph{augmentation}, model LLM akan bekerja dengan memproses \emph{prompt} dari pengguna dengan menggunakan konteks yang sudah diperoleh dari proses \emph{retriever} sebelumnya \cite{bansal2024llm}. Alat diimplementasikan dengan pertama-tama membuat sistem backend menggunakan LangChain untuk menghubungkan berbagai modul dan proses LLM. LangChain berfungsi sebagai penghubung dengan berbagai modul lainnya. Selanjutnya dilakukan pemilihan framework LLM yang akan digunakan. Framework yang digunakan harus bersifat \emph{open-source} dan ringan agar dapat efektif dalam penggunaan. Oleh karena itu, dalam tahapan pengujian, akan dilakukan uji coba pada berbagai framework untuk menguji efektivitas dari framework-framework tersebut. Beberapa yang akan diujikan adalah RASA, Hugging Face, dan Ilama Cpp. Pengujian dilakukan dengan melihat kinerja masing-masing framework, serta mempertimbangkan kelebihan dan kekurangan mereka. Setelah itu, akan dipilih framework yang paling efektif untuk digunakan dalam implementasi alat ini.
+During the \emph{augmentation} process, the LLM model will operate by processing the \emph{prompt} from the user using the context already obtained from the previous \emph{retriever} process \cite{bansal2024llm}. The tool is implemented by first creating a backend system using LangChain to connect various modules and LLM processes. LangChain serves as a connector to various other modules. Subsequently, a selection of the LLM framework to be used is made. The framework employed must be \emph{open-source} and lightweight in order to be effective in use. Therefore, in the testing phase, trials will be conducted on various frameworks to test the effectiveness of these frameworks. Some to be tested include RASA, Hugging Face, and Ilama Cpp. Testing is conducted by evaluating the performance of each framework, as well as considering their advantages and disadvantages. After that, the most effective framework will be selected for use in implementing this tool.
 
-Pada proses \emph{generation}, model LLM akan menghasilkan output berupa jawaban dari pertanyaan yang diberikan oleh pengguna. Output ini akan diberikan kepada pengguna sebagai jawaban dari pertanyaan yang diberikan. Dalam proses ini, model LLM akan menggunakan konteks yang sudah diperoleh dari proses \emph{retriever} sebelumnya. Dengan demikian, model LLM akan dapat memberikan jawaban yang lebih relevan dan akurat. Dalam pengetesan digunakan konfigurasi sebagai berikut:
-
+During the \emph{generation} process, the LLM model will produce output in the form of answers to the questions provided by the user. This output will be given to the user as an answer to their question. In this process, the LLM model will utilize the context obtained from the previous \emph{retriever} process. Thus, the LLM model will be able to provide answers that are more relevant and accurate. The testing used the following configuration:
 \begin{lstlisting}[
   language=python,
-  caption={Konfigurasi tes},
+  caption={Test configuration},
 ]
 model = AutoModelForCausalLM.from_pretrained(
    "$MODEL_NAME",
-    device_map='auto',
     load_in_8bit=True,
-    trust_remote_code=True)
-
+)
 pipeline = pipeline(
     "text-generation",
     model=model,
@@ -45,7 +44,8 @@ pipeline = pipeline(
 )
 \end{lstlisting}
 
-Setelah itu, dilakukan analisa terhadap hasil yang diperoleh dari model LLM. Hasil yang diperoleh akan dianalisa berdasarkan relevansi dan akurasi jawaban yang diberikan. Hal ini dilakukan dengan membandingkan jawaban dengan jawaban pada sumber data. Sebagai contoh, untuk pertanyaan: "Apa yang harus dilakukan jika terjadi pemadaman listrik?"  maka jawaban yang relevan sesuai buku adalah "Jika terjadi pemadaman listrik, jangan panik, generator darurat akan memulihkan daya dalam waktu sigkat, cari tahu masalah dan alasan pemadaman listrik, informasikan kepada petugas...". Selain itu, dilakukan analisa terhadap penggunaan RAM dan VRAM. Hal ini dilakukan untuk mengetahui seberapa efisien model LLM dalam penggunaan sumber daya. Dengan demikian, dapat diketahui seberapa efektif model LLM dalam memberikan jawaban yang relevan, akurat, dan efektif.
+After that, an analysis is conducted on the results obtained from the LLM model. The results will be analyzed based on the relevance and accuracy of the answers provided. This is done by comparing the answers with the answers from the data source. For example, for the question: "What should be done in the event of a power outage?" the relevant answer according to the book is "In the event of a power outage, do not panic, the emergency generator will restore power shortly, find out the problem and reason for the power outage, inform the authorities...". Furthermore, an analysis is conducted on the use of RAM and VRAM. This is done to determine how efficient the LLM model is in using resources. Thus, it can be determined how effective the LLM model is in providing answers that are relevant, accurate, and efficient.
+
 
 % Contoh input gambar pada kolom.
 % \begin{figure} [ht]

@@ -1,0 +1,137 @@
+% Ubah judul dan label berikut sesuai dengan yang diinginkan.
+\section{Results}
+\label{sec:analisahasil}
+
+After the text has done, the results obtained from the LLM model will be analyzed. The results obtained will be analyzed based on how much resources it uses. Results also evaluated by the relevance and accuracy of the answers given. 
+
+\subsection{RASA Framework}
+The first is testing using the \emph{RASA} framework. From this testing, it was found that RASA has advantages in terms of easy \emph{deployment}. However, RASA has shortcomings in terms of \emph{training}. RASA conducts \emph{training} using existing data. RASA uses YAML files to store its configurations. These configurations must contain the data to be used. Conversations will be limited to this existing data. This causes RASA to be unable to respond to questions outside this data. If users provide input different from the data, RASA will struggle to understand the user's intent. This results in RASA being unable to provide answers that match the user's questions. RASA can be used effectively if the user has an extensive question and answer dataset so that RASA can provide appropriate answers. This constraint significantly hinders RASA’s ability to handle queries or interactions that deviate from the predefined datasets. When faced with unfamiliar user inputs, RASA often struggles to accurately interpret the user's intent, leading to responses that do not align with the user's actual questions or needs. While RASA can be effective when a comprehensive dataset of questions and answers is available, this necessity limits its flexibility and scalability.
+
+RASA also lacks an active community, which means the development of RASA is slower compared to other \emph{frameworks}. RASA’s development suffers from a lack of robust community support. Unlike platforms such as \emph{HuggingFace}, which thrive on active community contributions and continuous advancements, RASA's community is relatively inactive. This lack of engagement results in slower updates and enhancements, contributing to RASA being perceived as outdated compared to more dynamic and community-driven frameworks. The culmination of these factors makes RASA a less optimal choice for deployment in projects that demand adaptability and ongoing development support. This causes RASA to be less optimal for use in this project.
+
+\subsection{Langchain and HuggingFace Framework }
+The next is testing using a combination of LangChain and HuggingFace. From the test results obtained in Table  \ref{tab:hasilrag}
+\begin{table}[!htbp]
+  \caption{Langchain and HuggingFace results}
+  \label{tab:hasilrag}
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    Name                      & R/V(GB) & T(s)  & Result \\
+    \midrule
+    bigscience/bloom-7b1      & 2.5/8.2    &27   & Accurate, but \\ \cite{muennighoff2022crosslingual}                          &          &           & not natural \\  
+    \\
+    bigscience/bloom-1b7
+    \cite{muennighoff2022crosslingual}      & 3.1/6.9   &15    & Accurate, but \\
+                              &          &           & not natural \\ 
+    \\ 
+    sail/Sailor-4B \cite{dou2024sailor}           & 4.3/6.3    &20   & Inaccurate \\
+    \\
+    sail/Sailor-0.5B \cite{dou2024sailor}          & 2.3/2.7   &12    & Inaccurate \\
+    \\
+    indonlp/cendol-mt5-       & 3.0/0.7  &22     & Accurate, but \\
+    small-inst \cite{indonlp1,indonlp2, indonlp3, indonlp4, indonlp5, indonlp6, indonlp7}              &          &           & not natural \\ 
+    \\
+    indonlp/cendol-llama2-    & 2.5/0.7   &25      & Inaccurate \\
+    7b-chat \cite{indonlp1,indonlp2, indonlp3, indonlp4, indonlp5, indonlp6, indonlp7}                  &          &           &  \\
+    \\
+    Yellow-AI-NLP/komodo-     & 5.0/7.3   &30    & Inaccurate \\
+    7b-base \cite{owen2024komodo}                  &          &           &  \\
+    \\
+    cahya/gpt2-small-         & 2.4/0.4   &11    & Inaccurate \\
+    indonesian-522M \cite{cahya_llm}          &          &           &  \\
+    \\
+    kalisai/Nusantara-7b-     & 3.2/9.9   &19    & Accurate, but \\
+    Indo-Chat \cite{zulfikar_aji_kusworo_2024}        &          &           & not natural \\
+    \\
+    kalisai/Nusantara-4b-     & 4.4/6.3   &12    & Accurate, but \\
+    Indo-Chat  \cite{zulfikar_aji_kusworo_2024}               &          &           & not natural \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\subsection{Framework Langchain dan Llama.cpp}
+Next is testing using a combination of LangChain and Llama.cpp. From the test results obtained in Table \ref{tab:hasilllama}
+\begin{table}[!htbp]
+  \caption{llama.cpp Results}
+  \label{tab:hasilllama}
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    Name                      & R/V(GB) & T(s)  & Result \\
+    \midrule
+    bigscience/bloom-7b1      & 2.5/8.2    &18   & Accurate, but \\ \cite{muennighoff2022crosslingual}                          &          &           & not natural \\  
+    \\
+    bigscience/bloom-1b7
+    \cite{muennighoff2022crosslingual}      & 3.1/6.9   &15    & Accurate, but \\
+                              &          &           & not natural \\ 
+    \\ 
+    Merak-7B-v4-model-Q4 \cite{Merak}       & 3.4/5.3    &13   & Accurate, but \\
+                              &          &           & not natural \\
+    \\
+    Merak-7B-v4-model-Q5 \cite{Merak}       & 3.5/6.0   &15    & Accurate, but \\
+                              &          &           & not natural \\
+    \\
+    aya-23-8B-Q6-K \cite{aryabumi2024aya}   & 3.3/7.0  &10     & Accurate \\
+    \\
+    aya-23-8B-Q4-K-M \cite{aryabumi2024aya} & 3.3/5.1   &6      & Accurate, but \\
+                              &          &           & not optimal \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\subsection{Overall Testing with RAGAs}
+To observe overall performance of RAG process. This experiment utilized the RAGAs framework, specifically testing the model aya-23-8B-Q4-K-M. We tested the model by comparing its responses to 75 human-answered questions across metrics such as Faithfulness, Answer Relevancy, and Answer Correctness.
+
+In the first test using a bi-encoder retriever, the results were Faithfulness: 45.415\%, Answer Relevancy: 88.965\%, and Answer Correctness: 54.193\%. These indicated a significant lack of factual alignment in the model's responses due to inappropriate context handling.
+
+The second test, employing a cross-encoder retriever, improved the results to Faithfulness: 79.931\%, Answer Relevancy: 96.236\%, and Answer Correctness: 62.596\%. Despite better performance, the results were still below desired levels, influenced by data segmentation issues.
+
+A third test, with contextually grouped data, showed further improvements: Faithfulness: 86.269\%, Answer Relevancy: 96.536\%, and Answer Correctness: 65.196\%. However, the extended length of responses, prompted by high temperature settings, still did not meet the desired metrics.
+
+The fourth test adjusted the temperature to yield more concise and detailed responses, leading to Faithfulness: 93.095\%, Answer Relevancy: 98.299\%, and Answer Correctness: 77.093\%. This showed significant improvement though still short of reaching 90\% in Answer Correctness.
+
+
+Results from all tests are compiled in Table \ref{tab:hasilragas}, with Faithfulness (F), Answer Relevancy (AR), Answer Correctness (AC).
+
+
+\begin{table}[!htbp]
+  \caption{RAGAs Results}
+  \label{tab:hasilragas}
+  \centering
+  \begin{tabular}{llll}
+    \toprule
+    No & F (\%) & AR (\%) & AC {\%} \\
+    \midrule
+    1& 45,415  & 88,965 & 54,193 \\
+    2& 79,931 & 96,236 & 62,596 \\
+    3& 86,269 & 96,536 & 65,196 \\
+    4& 93,095 & 98,299 & 77,093 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+% Ubah paragraf-paragraf pada bagiaOveran ini sesuai dengan yang diinginkan.
+
+% % Contoh input beberapa gambar pada halaman.
+% \begin{figure*}
+%   \centering
+%   \subfloat[Hasil A]{\includegraphics[width=.4\textwidth]{example-image-a}
+%     \label{fig:hasila}}
+%   \hfil
+%   \subfloat[Hasil B]{\includegraphics[width=.4\textwidth]{example-image-b}
+%     \label{fig:hasilb}}
+%   \caption{Contoh input beberapa gambar.}
+%   \label{fig:hasil}
+% \end{figure*}
+
+% \lipsum[16-18]
+
+% % Contoh input potongan kode dari file.
+% \lstinputlisting[
+%   language=Python,
+%   caption={Program perhitungan bilangan prima.},
+%   label={lst:bilanganprima}
+% ]{program/bilangan-prima.py}
+
+% \lipsum[19-20]
